@@ -1,0 +1,63 @@
+.footer {
+    height: 5.5rem;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: stretch;
+
+    background-color: var(--surface-card);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+
+    &__wrapper-logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &--app > .wrapper-logo-txt {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: $inlineSpacing;
+        }
+
+        &--trt > .wrapper-logo-img {
+            height: 3rem;
+
+            & > img {
+                height: 100%;
+            }
+        }
+    }
+
+    &__copyright {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: var(--text-color-secondary);
+        align-self: center;
+        text-align: center;
+
+        &::before {
+            content: "\00A9";
+            margin-right: 0.2em;
+        }
+    }
+}
+
+.wrapper-logo-txt {
+    &__sigla {
+        height: 100%;
+        font-size: 1.65rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+    }
+
+    &__descricao {
+        color: var(--primary-color);
+        border-left: 2px solid var(--tertiary-color);
+        width: 9rem;
+        font-size: 0.825rem;
+        font-weight: 600;
+        padding-left: $inlineSpacing;
+    }
+}

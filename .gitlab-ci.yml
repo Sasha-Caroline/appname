@@ -1,0 +1,119 @@
+stages:  
+  - build    
+  - pause
+  - resume
+  - deploy_desenvolvimento  
+  - deploy_homologacao
+  - deploy_producao
+
+variables:
+  IMAGE_VERSION:
+    value: "$CI_BUILD_REF_NAME"
+    description: "Identificador da versão dessa imagem. Ex: 1.0.0"
+
+default: 
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY    
+  after_script:
+    - docker logout -u $CI_REGISTRY_USER 
+
+build-backend:
+  stage: build  
+  script:    
+    - echo "Gerando a imagem de BACKEND do appname"
+    - cd appname-api    
+    - docker build -f Dockerfile.backend -t registry.trt8.jus.br/desenvolvimento/appname/appname-api:$IMAGE_VERSION .    
+    - docker push registry.trt8.jus.br/desenvolvimento/appname/appname-api:$IMAGE_VERSION
+    - docker rmi registry.trt8.jus.br/desenvolvimento/appname/appname-api:$IMAGE_VERSION              
+    
+  only:
+    refs:
+      - tags
+      
+build-frontend:
+  stage: build
+  script:    
+    - echo "Gerando a imagem de FRONTEND do appname"
+    - cd appname-ui
+    - sed -i "s/\${IMAGE_VERSION}/$IMAGE_VERSION/g" ./src/assets/env.js        
+    - docker build -f Dockerfile.frontend -t registry.trt8.jus.br/desenvolvimento/appname/appname-ui:$IMAGE_VERSION .
+    - docker push registry.trt8.jus.br/desenvolvimento/appname/appname-ui:$IMAGE_VERSION
+    - docker rmi registry.trt8.jus.br/desenvolvimento/appname/appname-ui:$IMAGE_VERSION    
+    
+  only:
+    refs:
+      - tags
+      
+deploy_desenvolvimento:
+  stage: deploy_desenvolvimento
+  environment: desenvolvimento
+  script:
+    - echo "Iniciando o deploy do BACKEND em DESENVOLVIMENTO"
+    - sed -i "s/<IMAGE_VERSION>/$IMAGE_VERSION/g" ./k8s/desenvolvimento/api.yaml
+    - kubectx kubernetes-homologacao
+    - kubens dev
+    - kubectl delete all -l app=appname-api-dev
+    - kubectl delete ingresses -l app=appname-api-dev
+    - envsubst < ./k8s/desenvolvimento/api.yaml | kubectl apply -f -    
+    
+    - echo "Iniciando o deploy do FRONTEND em DESENVOLVIMENTO"
+    - sed -i "s/<IMAGE_VERSION>/${IMAGE_VERSION}/g" ./k8s/desenvolvimento/ui.yaml
+    - kubectl delete all -l app=appname-ui-dev
+    - kubectl delete ingresses -l app=appname-ui-dev
+    - envsubst < ./k8s/desenvolvimento/ui.yaml | kubectl apply -f -    
+
+    - kubectl apply -f ./k8s/desenvolvimento/ingress.yaml
+
+  when: manual
+  only:
+    refs:
+      - tags
+
+deploy_homologacao:
+  stage: deploy_homologacao
+  environment: homologacao
+  script:
+    - echo "Iniciando o deploy do BACKEND em HOMOLOGACAO"
+    - sed -i "s/<IMAGE_VERSION>/$IMAGE_VERSION/g" ./k8s/homologacao/api.yaml
+    - kubectx kubernetes-homologacao
+    - kubens dev
+    - kubectl delete all -l app=appname-api-hom
+    - kubectl delete ingresses -l app=appname-api-hom
+    - envsubst < ./k8s/homologacao/api.yaml | kubectl apply -f -        
+    
+    - echo "Iniciando o deploy do FRONTEND em HOMOLOGACAO"
+    - sed -i "s/<IMAGE_VERSION>/${IMAGE_VERSION}/g" ./k8s/homologacao/ui.yaml
+    - kubectl delete all -l app=appname-ui-hom
+    - kubectl delete ingresses -l app=appname-ui-hom
+    - envsubst < ./k8s/homologacao/ui.yaml | kubectl apply -f -        
+
+    - kubectl apply -f ./k8s/homologacao/ingress.yaml
+
+  when: manual
+  only:
+    refs:
+      - tags      
+      
+deploy_producao:
+  stage: deploy_producao
+  environment: producao
+  script:
+    - echo "Iniciando o deploy do BACKEND em PRODUCAO"
+    - sed -i "s/<IMAGE_VERSION>/$IMAGE_VERSION/g" ./k8s/producao/api.yaml
+    - kubectx kubernetes-app
+    - kubens appname
+    - kubectl delete all -l app=appname-api
+    - kubectl delete ingresses -l app=appname-api
+    - envsubst < ./k8s/producao/api.yaml | kubectl apply -f -        
+    
+    - echo "Iniciando o deploy do FRONTEND em PRODUCAO"
+    - sed -i "s/<IMAGE_VERSION>/$IMAGE_VERSION/g" ./k8s/producao/ui.yaml
+    - kubectl delete all -l app=appname-ui
+    - kubectl delete ingresses -l app=appname-ui
+    - envsubst < ./k8s/producao/ui.yaml | kubectl apply -f -
+
+    - kubectl apply -f ./k8s/producao/ingress.yaml
+  when: manual
+  only:
+    refs:
+      - tags

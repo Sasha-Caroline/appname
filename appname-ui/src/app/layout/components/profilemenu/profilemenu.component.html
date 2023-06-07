@@ -1,0 +1,42 @@
+<nav class="user-profile" *ngIf="authService.user$ | async as user">
+    <ul>
+        <li>
+            <a pRipple *ngIf="authService.userIsAuthenticated(); else usuarioNaoAutenticado" class="user-profile__button" (click)="click($event)">
+                <div class="user-profile__foto">
+                    <img *ngIf="user.photo; else usuarioSemFoto" [src]="'data:image/png;base64,'+user.photo" />
+                    <ng-template #usuarioSemFoto>
+                        <fa-icon [icon]="['far','user']" size="lg"></fa-icon>
+                    </ng-template>
+                </div>
+                <div class="user-profile__nome">{{user.name | titlecase | name:'firstName'}}</div>
+            </a>
+            <ng-template #usuarioNaoAutenticado>
+                <a pRipple class="user-profile__button" (click)="authService.login()">
+                    <div class="user-profile__foto">
+                        <img *ngIf="user.photo; else usuarioSemFoto" [src]="'data:image/png;base64,'+user.photo" />
+                        <ng-template #usuarioSemFoto>
+                            <fa-icon [icon]="['fas','right-to-bracket']" size="lg"></fa-icon>
+                        </ng-template>
+                    </div>
+                    <div class="user-profile__nome">{{'botao.login' | translate}}</div>
+                </a>
+            </ng-template>
+            <nav class="user-profile__submenu">
+                <ul>
+                    <li>
+                        <a pRipple>
+                            <fa-icon [icon]="['fas','gear']" size="lg"></fa-icon>
+                            <span>{{'botao.preferencias' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple (click)="authService.logout()">
+                            <fa-icon [icon]="['fas','power-off']" size="lg"></fa-icon>
+                            <span>{{'botao.logout' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>

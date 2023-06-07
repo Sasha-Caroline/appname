@@ -1,0 +1,27 @@
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: appname-dev-ingress
+  namespace: dev
+  labels:
+    app: appname-dev
+    env: desenvolvimento
+  annotations:
+    kubernetes.io/ingress.class: nginx    
+spec:
+  tls:
+    - hosts:
+        - appname-dev.trt8.jus.br
+  rules:
+  - host: appname-dev.trt8.jus.br
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: appname-api-dev-service
+          servicePort: 80
+
+      - backend:
+          serviceName: appname-ui-dev-service
+          servicePort: 80

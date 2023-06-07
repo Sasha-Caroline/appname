@@ -1,0 +1,44 @@
+.statusbar {
+    position: fixed;
+    top: 4rem;
+    padding: 0.5rem 1.5rem;
+    width: calc(100% - var(--page-margin-left));
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9997;
+    background-color: var(--surface-overlay);
+    //border-bottom: 1px solid var(--surface-border);
+    box-shadow: 0 3px 5px #00000005, 0 0 2px #0000000d, 0 1px 4px #00000014;
+    font-size: calc(1rem * $scaleSM);
+
+    &__breadcrumb ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: $inlineSpacing;
+        flex-wrap: wrap;
+        color: var(--text-color-secondary);
+
+        li {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: $inlineSpacing;
+
+        & > li > a {
+            @extend %actionButton;
+            padding: 0.5rem;
+        }
+    }
+}

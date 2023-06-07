@@ -1,0 +1,46 @@
+<ng-container *ngIf="item && item.visible !== false">
+    <ng-container *ngIf="!item.separator; else separator">
+        <li [id]="item.id" class="menu__item">
+            <!-- GROUP-->
+            <span class="menu__group" *ngIf="root && !item.routerLink">
+                <span>{{item.label | translate}}</span>
+                <i class="pi pi-ellipsis-h"></i>
+                <!-- <fa-icon [icon]="['fas', 'ellipsis']" size="lg"></fa-icon> -->
+            </span>
+
+            <!-- ITEM -->
+            <a
+                class="menu__link"
+                (click)="itemClick($event)"
+                *ngIf="!!item.routerLink || (item.items && !root)"
+                pRipple
+                [routerLink]="item.routerLink"
+                routerLinkActive="menu__link--activated"
+                [routerLinkActiveOptions]="item.routerLinkActiveOptions||{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+                [fragment]="item.fragment"
+                [queryParamsHandling]="item.queryParamsHandling"
+                [preserveFragment]="item.preserveFragment"
+                [skipLocationChange]="item.skipLocationChange"
+                [replaceUrl]="item.replaceUrl"
+                [state]="item.state"
+                [queryParams]="item.queryParams"
+                [attr.target]="item.target"
+                tabindex="0">
+                <!-- <i [class]="item.icon"></i> -->
+                <!-- <fa-icon [icon]="[item.icon.split(' ')[0], item.icon.split(' ')[1]]"></fa-icon> -->
+                <fa-icon *ngIf="this.item.icon" [icon]="icon()" size="lg"></fa-icon>
+                <span>{{item.label | translate}}</span>
+            </a>
+
+            <!-- SUBMENU -->
+            <ng-container *ngIf="item.items">
+                <ul class="menu__submenu" [ngClass]="{'menu__submenu--expanded': item.expanded}">
+                    <ng-container *ngFor="let subitem of item.items; let i=index">
+                        <app-menu-item [item]="subitem" [index]="i" [root]="false"></app-menu-item>
+                    </ng-container>
+                </ul>
+            </ng-container>
+        </li>
+    </ng-container>
+    <ng-template #separator><li class="menu__separator"></li></ng-template>
+</ng-container>

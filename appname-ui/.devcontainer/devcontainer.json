@@ -1,0 +1,104 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "[FRONTEND] APPNAME",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {
+			"ppa": true,
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"moby": true,
+			"version": "latest",
+			"dockerDashComposeVersion": "v2"
+		}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+		  // Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+
+						"angular.ng-template",
+						"johnpapa.angular2",
+                        "cyrilletuzi.angular-schematics",
+                        "alexiv.vscode-angular2-files",
+                        "christian-kohler.path-intellisense",
+                        "steoates.autoimport",
+                        "stringham.move-ts",
+                        "rbbit.typescript-hero",
+                        "obenjiro.arrr",
+                        "simontest.simontest",
+                        "rctay.karma-problem-matcher",
+                        "infinity1207.angular2-switcher",
+                        "john-crowson.angular-file-changer",
+                        "pmneo.tsimporter",
+                        "wix.vscode-import-cost",
+                        "christian-kohler.npm-intellisense",
+                        "ecmel.vscode-html-css",
+                        "zignd.html-css-class-completion",
+
+						"humao.rest-client",
+						"chakrounanas.turbo-console-log",
+						"kamikillerto.vscode-colorize",
+						"ritwickdey.liveserver",
+						"formulahendry.auto-rename-tag",
+						"formulahendry.auto-close-tag",
+						"pranaygp.vscode-css-peek",
+						"xabikos.javascriptsnippets",
+						"idleberg.icon-fonts",
+						"dbaeumer.vscode-eslint",
+						"esbenp.prettier-vscode",
+						"ms-vscode.live-server",
+						"mariusalchimavicius.json-to-ts",
+						"kisstkondoros.vscode-gutter-preview",
+
+                        "yzhang.markdown-all-in-one",
+                        "davidanson.vscode-markdownlint",
+						"editorconfig.editorconfig",
+						"sonarsource.sonarlint-vscode",
+						"alefragnani.Bookmarks",
+						"ms-vsliveshare.vsliveshare",
+						"chrmarti.regex",
+						"pnp.polacode",
+						"aaron-bond.better-comments",
+						"oderwat.indent-rainbow",
+						"johnpapa.vscode-peacock",
+						"gruntfuggly.todo-tree",
+						"redhat.fabric8-analytics",
+						"eamodio.gitlens",
+						"donjayamanne.githistory",
+						"ms-azuretools.vscode-docker",
+						"pkief.material-icon-theme",
+						"streetsidesoftware.code-spell-checker",
+						"streetsidesoftware.code-spell-checker-portuguese-brazilian"],
+			"workbench.iconTheme": "material-icon-theme",
+			"editor.bracketPairColorization.enabled": true,
+            "git.openRepositoryInParentFolders": "always"
+		}
+	},
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
+    "workspaceFolder": "${localWorkspaceFolder}",
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind"
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

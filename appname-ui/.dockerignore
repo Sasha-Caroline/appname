@@ -1,0 +1,15 @@
+.angular
+.vscode
+.devcontainer
+http
+dist
+node
+node_modules
+target
+**/*.log
+Dockerfile
+.git
+.gitignore
+README.md
+pom.xml
+.editorconfig

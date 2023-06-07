@@ -1,0 +1,101 @@
+.app-container {
+    --sidebar-width: 0rem;
+    --page-margin-left: 0rem;
+
+    @include responsive(tablet-landscape) {
+        --sidebar-width: 5rem;
+        --page-margin-left: 5rem;
+    }
+
+    min-height: 100vh;
+    // background-color: var(--surface-500);
+    position: relative;
+    display: flex;
+
+    .page-container {
+        margin-left: var(--page-margin-left);
+        width: calc(100% - var(--page-margin-left));
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+
+        .content-wrapper {
+            margin-top: 6.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+
+            .content-container {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+                width: 100%;
+                min-height: max-content;
+                background-color: var(--surface-ground);
+            }
+        }
+    }
+
+    &.sidebar--extended {
+        --sidebar-width: 15rem;
+        .sidebar {
+            transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+        }
+    }
+
+    &.sidebar--fixed {
+        --sidebar-width: 15rem;
+        --page-margin-left: 15rem;
+    }
+
+    // &.sidebar--activated {
+    //     --sidebar-width: 5rem;
+    //     --page-margin-left: 5rem;
+
+    //     .sidebar {
+    //         display: flex;
+    //         visibility: visible;
+    //         opacity: 1;
+
+    //         // @include styleclass("");
+    //     }
+    // }
+
+    &.sidebar--hidden {
+        --sidebar-width: 0rem;
+        --page-margin-left: 0rem;
+
+        .sidebar {
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+
+            // @include styleclass("");
+        }
+    }
+
+    &.topbar--hidden {
+        .content-wrapper {
+            margin-top: 2.5rem;
+        }
+    }
+
+    &.statusbar--hidden {
+        .content-wrapper {
+            margin-top: 4rem;
+        }
+
+        .statusbar {
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
+    &.statusbar--hidden.topbar--hidden {
+        .content-wrapper {
+            margin-top: 0;
+        }
+    }
+}

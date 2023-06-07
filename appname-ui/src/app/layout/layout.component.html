@@ -1,0 +1,20 @@
+<ng-container *ngIf="{value: layoutService.state | async} as state">
+    <div
+        id="app-container"
+        class="app-container"
+        [ngClass]="{'sidebar--hidden': !state.value?.sidebarVisible, 'sidebar--extended': state.value?.sidebarExpanded, 'sidebar--fixed': state.value?.sidebarPinned, 'statusbar--hidden': true}">
+        <app-sidebar></app-sidebar>
+        <app-rightmenu></app-rightmenu>
+        <div class="page-container">
+            <!-- PAGE CONTAINER-->
+            <app-topbar></app-topbar>
+            <app-statusbar></app-statusbar>
+            <div class="content-wrapper">
+                <!-- CONTENT WRAPPER -->
+                <main class="content-container"><router-outlet></router-outlet></main>
+                <!-- CONTENT CONTAINER -->
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </div>
+</ng-container>

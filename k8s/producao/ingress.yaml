@@ -1,0 +1,30 @@
+
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: appname-ingress
+  namespace: appname
+  labels:
+    app: appname
+    env: producao
+  annotations:
+    #kubernetes.io/ingress.class: haproxy-interno
+    #ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  tls:
+    - hosts:
+        - appname.trt8.jus.br
+  rules:
+  - host: appname.trt8.jus.br
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: appname-api-service
+          servicePort: http
+
+      - backend:
+          serviceName: appname-ui-service
+          servicePort: 80
+

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "appname-api",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.jus.trt8.appname.AppNameApiApplication",
+            "projectName": "appname-api",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

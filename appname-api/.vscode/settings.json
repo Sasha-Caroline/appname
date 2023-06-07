@@ -1,0 +1,52 @@
+{
+    "cSpell.language": "en,pt_BR",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnType": false,
+    "java.autobuild.enabled": true,
+    "java.debug.settings.hotCodeReplace": "manual",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.dependency.autoRefresh": true,
+    "java.dependency.syncWithFolderExplorer": true,
+    "java.maven.downloadSources": true,
+    "java.maven.updateSnapshots": true,
+    "java.typeHierarchy.lazyLoad": true,
+    "java.format.comments.enabled": true,
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "java.checkstyle.configuration": "/google_checks.xml",
+    "java.quickfix.showAt": "problem",
+    "java.jdt.ls.vmargs": "-Xlog:jni+resolve=off",
+    "[java]": {
+        "editor.detectIndentation": false,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+            "source.addMissingImports": true
+        }
+    },
+
+    "[yaml]": {
+        "editor.detectIndentation": false,
+        "editor.formatOnSave": false
+    },
+
+    "[yml]": {
+        "editor.detectIndentation": false,
+        "editor.formatOnSave": false
+    },
+    "java.project.sourcePaths": [],
+    "maven.terminal.favorites": [
+        {
+            "command": "clean package -DskipTests",
+            "debug": false
+        },
+        {
+            "command": "clean compile",
+            "debug": false
+        }
+    ]
+}

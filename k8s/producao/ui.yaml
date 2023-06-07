@@ -1,0 +1,64 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: appname-ui
+  namespace: appname
+  labels:
+    app: appname-ui
+    env: producao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appname-ui
+      env: producao
+  template:
+    metadata:
+      labels:
+        app: appname-ui
+        env: producao
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "1234"
+    spec:
+      containers:
+      - name: appname-ui-container
+        image: registry.trt8.jus.br/desenvolvimento/appname/appname-ui:<IMAGE_VERSION>
+        ports:
+        - containerPort: 80
+        env:
+        - name: KEYCLOAK_REALM
+          value: ${KEYCLOAK_REALM}
+        - name: KEYCLOAK_AUTH_SERVER_URL
+          value: ${KEYCLOAK_AUTH_SERVER_URL}
+        - name: KEYCLOAK_RESOURCE_UI
+          value: ${KEYCLOAK_RESOURCE_UI}
+        - name: KEYCLOAK_ROLE_RESOURCE
+          value: ${KEYCLOAK_RESOURCE_API}        
+        - name: AMBIENTE
+          value: ""        
+        - name: API_URL
+          value: "https://appname.trt8.jus.br/api"
+        - name: DEFAULT_TIMEZONE
+          value: "America/Belem"
+        - name: DEFAULT_LOCALE
+          value: "pt-BR" 
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: appname-ui-service
+  namespace: appname
+  labels:
+    app: appname-ui
+    env: producao
+spec:
+  selector:
+     app: appname-ui
+     env: producao
+  ports:
+    - name: http
+      port: 80
+

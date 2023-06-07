@@ -1,0 +1,283 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">		
+		
+		<activeProfiles>
+			<activeProfile>TRT8</activeProfile>
+			<!--<activeProfile>Remoto</activeProfile>-->
+		</activeProfiles>				
+		
+		<profiles>
+			<!-- REMOTO -->
+			<!-- Utilizar este perfil quando não se deseja baixar todas as dependências diretamente do NEXUS do TRT8 -->
+			<profile>
+				<id>Remoto</id>
+				<!-- DEPENDENCY REPOSITORY  -->
+				<repositories>																			
+					<repository>
+						<id>maven-central</id>
+						<name>Maven Central</name>
+						<url>https://repo1.maven.org/maven2/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>spring-releases</id>
+						<name>Spring Releases</name>
+						<url>https://repo.spring.io/ui/native/release</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>spring-snapshot</id>
+						<name>Spring Snapshot</name>
+						<url>https://repo.spring.io/ui/native/snapshot</url>						
+						<releases>							
+							<enabled>false</enabled>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>					
+					</repository>
+					<repository>
+						<id>spring-milestone</id>
+						<name>Spring Milestone</name>
+						<url>https://repo.spring.io/ui/native/snapshot</url>						
+						<releases>							
+							<updatePolicy>daily</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>					
+					</repository>
+					<repository>
+						<id>jaspersoft-releases</id>
+						<name>JasperSoft Releases</name>
+						<url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-releases</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>jaspersoft-snapshot</id>
+						<name>JasperSoft Snapshot</name>
+						<url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-snapshots</url>						
+						<releases>							
+							<enabled>false</enabled>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>					
+					</repository>
+					<repository>
+						<id>jaspersoft-third-party</id>
+						<name>JasperSoft Third Party</name>
+						<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>jasperreports</id>
+						<name>JasperReports</name>
+						<url>http://jasperreports.sourceforge.net/maven2</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>trt8-release</id>
+						<name>TRT8 Release</name>
+						<url>https://dev.trt8.jus.br/nexus/repository/maven-releases/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</repository>
+					<repository>
+						<id>trt8-snapshot</id>
+						<name>TRT8 Snapshot</name>
+						<url>https://dev.trt8.jus.br/nexus/repository/maven-snapshots/</url>						
+						<releases>							
+							<enabled>false</enabled>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>					
+					</repository>
+				</repositories>		
+				<!-- PLUGIN REPOSITORY  -->
+				<pluginRepositories>																																
+					<pluginRepository>
+						<id>maven-central</id>
+						<name>Maven Central</name>
+						<url>https://repo1.maven.org/maven2/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>
+						</snapshots>						
+					</pluginRepository>
+					<pluginRepository>
+						<id>spring-releases</id>
+						<name>Spring Releases</name>
+						<url>https://repo.spring.io/ui/native/release</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</pluginRepository>					
+					<pluginRepository>
+						<id>spring-milestone</id>
+						<name>Spring Milestone</name>
+						<url>https://repo.spring.io/ui/native/snapshot</url>						
+						<releases>							
+							<updatePolicy>daily</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>
+						</snapshots>					
+					</pluginRepository>
+					<pluginRepository>
+						<id>jaspersoft-releases</id>
+						<name>JasperSoft Releases</name>
+						<url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-releases</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</pluginRepository>					
+					<pluginRepository>
+						<id>jaspersoft-third-party</id>
+						<name>JasperSoft Third Party</name>
+						<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>
+						</snapshots>						
+					</pluginRepository>
+					<pluginRepository>
+						<id>jasperreports</id>
+						<name>JasperReports</name>
+						<url>http://jasperreports.sourceforge.net/maven2</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>
+						</snapshots>						
+					</pluginRepository>
+					<pluginRepository>
+						<id>trt8-release</id>
+						<name>TRT8 Release</name>
+						<url>https://dev.trt8.jus.br/nexus/repository/maven-releases/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<enabled>false</enabled>							
+						</snapshots>						
+					</pluginRepository>					
+				</pluginRepositories>	
+			</profile>	
+			
+			<!-- TRT8 -->
+			<!-- Utilizar este perfil quando se deseja baixar todas as dependências diretamente do NEXUS do TRT8 -->
+			<profile>
+				<id>TRT8</id>
+				<!-- DEPENDENCY REPOSITORY  -->
+				<repositories>																								
+					<repository>
+						<id>trt8-nexus</id>
+						<name>TRT8 Nexus</name>
+						<url>https://dev.trt8.jus.br/nexus/repository/maven-public/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>						
+					</repository>					
+				</repositories>		
+				<!-- PLUGIN REPOSITORY  -->
+				<pluginRepositories>																								
+					<pluginRepository>
+						<id>trt8-nexus</id>
+						<name>TRT8 Nexus</name>
+						<url>https://dev.trt8.jus.br/nexus/repository/maven-public/</url>						
+						<releases>							
+							<updatePolicy>never</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</releases>
+						<snapshots>							
+							<updatePolicy>always</updatePolicy>
+							<checksumPolicy>fail</checksumPolicy>
+						</snapshots>						
+					</pluginRepository>					
+				</pluginRepositories>						
+			</profile>
+		</profiles>							
+		
+		<servers>    
+			<server>
+				<id>nexus-snapshots</id>
+				<username>admin</username>
+				<password>admin</password>
+			</server>
+			<server>
+				<id>nexus-releases</id>
+				<username>admin</username>
+				<password>admin</password>
+			</server>     
+		</servers>
+		
+</settings>

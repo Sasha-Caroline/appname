@@ -1,0 +1,213 @@
+.user-profile {
+    &__foto {
+        height: 3rem;
+        width: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+
+    &__nome {
+        font-size: calc(1rem);
+        font-weight: 500;
+        padding-left: $inlineSpacing;
+    }
+
+    &__submenu {
+        padding: 0.5rem 0;
+        width: 100%;
+        display: block;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+            flex-direction: column;
+            position: relative;
+        }
+    }
+
+    //CONTEXTO: SIDEBAR
+    .sidebar & {
+        @extend %menu;
+        min-height: 5.5rem;
+        padding: 0.5rem 0;
+        width: var(--sidebar-width);
+        border-right: 1px solid var(--surface-border);
+        justify-content: center;
+
+        &__submenu {
+            @extend %menu;
+            display: none;
+        }
+
+        &__button {
+            padding: 0.5rem !important;
+            height: fit-content !important;
+
+            .user-profile__nome {
+                display: none;
+            }
+        }
+    }
+
+    //CONTEXTO: RIGHTMENU
+    .right-menu & {
+        @extend %menu;
+        color: var(--text-color);
+
+        > ul {
+            li {
+                > a {
+                    flex-direction: column;
+                    height: fit-content !important;
+                    width: fit-content !important;
+                    padding: 1rem;
+
+                    color: $actionIconColor;
+                    border: $actionIconBorder;
+                    cursor: pointer;
+                    transition-duration: $transitionDuration;
+                    transition-property: $actionIconTransition;
+
+                    &:hover {
+                        color: $actionIconHoverColor;
+                        background-color: $actionIconHoverBg;
+                        border-color: $actionIconHoverBorderColor;
+                    }
+                }
+            }
+        }
+
+        &__nome {
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0 !important;
+        }
+
+        &__submenu {
+            @extend %menu;
+            padding-top: 1rem;
+
+            > ul {
+                flex-direction: row;
+                justify-content: space-around;
+                li {
+                    > a {
+                        flex-direction: column;
+                        height: fit-content !important;
+                        width: fit-content !important;
+
+                        span {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+        // font-size: 1rem;
+
+        // > ul {
+        //     display: flex;
+        //     flex-direction: column;
+        //     gap: $inlineSpacing;
+        //     list-style: none;
+        //     margin: 0;
+        //     padding: 0 0.5rem;
+        //     width: 100%;
+
+        //     li {
+        //         display: flex;
+        //         justify-content: center;
+        //         align-items: center;
+        //     }
+        // }
+
+        // padding: 0.5rem 0;
+
+        &__foto {
+            height: 5.5rem;
+        }
+
+        &__button {
+            // padding: 0.5rem !important;
+            // height: fit-content !important;
+        }
+    }
+
+    .sidebar__footer--expanded &__submenu {
+        display: flex;
+    }
+
+    .sidebar--extended .sidebar__footer &,
+    .sidebar--fixed .sidebar__footer & {
+        align-items: flex-start;
+
+        &__button {
+            justify-content: flex-start;
+
+            .user-profile__nome {
+                display: flex;
+            }
+        }
+
+        &__submenu {
+            > ul li > a {
+                justify-content: flex-start;
+
+                span {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    //CONTEXTO: TOPBAR
+    .topbar & {
+        padding: 0 $inlineSpacing;
+        margin: 0;
+
+        display: flex;
+        align-items: center;
+        gap: $inlineSpacing;
+        border-left: $divider;
+
+        &__nome {
+            display: none;
+        }
+
+        @include responsive(tablet-landscape) {
+            &__nome {
+                display: block;
+            }
+        }
+
+        &__button {
+            padding: 0.2rem 0.5rem;
+            border-radius: $borderRadius;
+            max-width: 11rem;
+
+            &:hover {
+                background-color: $highlightBg;
+            }
+        }
+
+        &__submenu {
+            display: none;
+            visibility: none;
+            opacity: 0;
+        }
+    }
+}

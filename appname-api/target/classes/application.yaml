@@ -1,0 +1,233 @@
+# configurações do servidor
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${CONTEXT_PATH:/api}
+  tomcat.additional-tld-skip-patterns:
+    - oraclepki.jar
+    - osdt_core.jar
+    - osdt_cert.jar
+
+# configurações gerais
+spring:
+  profiles:
+    active:
+      - "@activatedProfile@"
+  flyway:
+    enabled: ${FLYWAY_ENABLED:false}
+    baseline-on-migrate: true
+    baseline-version: 0
+    baseline-description: AppName Baseline
+    create-schemas: ${FLYWAY_CREATE_SCHEMA:false}
+    default-schema: ${DB_SCHEMA:APPNAME}
+    schemas: ${DB_SCHEMA:APPNAME}
+    url: ${DB_URL}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    database-platform: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: ${JPA_SHOW_SQL:false}
+        default_schema: ${DB_SCHEMA:"APPNAME"}
+      org:
+        hibernate:
+          envers:
+            default_schema: ${DB_SCHEMA:"APPNAME"}
+      javax.persistence.schema-generation.scripts:
+        action: none
+  sql:
+    init:
+      mode: never
+  security:
+    enabled: ${SECURITY_ENABLED:true}
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:https://keycloak-prod.trt8.jus.br/auth/realms/TRT8_STAGING/protocol/openid-connect/certs}
+  mail:
+    host: ${MAIL_HOST:correio.trt8.jus.br}
+    port: ${MAIL_PORT:25}
+    no-reply-address: ${MAIL_NOREPLY_ADDRESS:noreply.appname@trt8.jus.br}
+    enviar: ${MAIL_ENVIAR:true}
+    redirect-to: ${MAIL_REDIRECT_TO:}
+  task:
+    scheduling:
+      pool:
+        size: ${TASK_SCHEDULING_POOL_SIZE:5}
+  jackson:
+    time-zone: ${DEFAULT_TIMEZONE:America/Belem}
+    locale: ${DEFAULT_LOCALE:pt-BR}
+
+# configurações de logging
+logging:
+  level:
+    org:
+      flywaydb: ${LOGGING_LEVEL:error}
+      hibernate:
+        type.descriptor.sql.BasicBinder: ${LOGGING_LEVEL:error}
+      springframework:
+        web:
+          filter: ${LOGGING_LEVEL:error}
+          client: ${LOGGING_LEVEL:error}
+        transaction: ${LOGGING_LEVEL:error}
+      keycloak: ${LOGGING_LEVEL:error}
+    br.jus.trt8: ${LOGGING_LEVEL:error}
+
+# configurações das integrações
+integracoes:
+  sigep:
+    url: ${INTEGRACOES_SIGEP_URL:https://trt8-integracoes.trt8.jus.br/integracoes-sigep/}
+
+# configuração da aplicação
+app:
+  time-zone: ${DEFAULT_TIMEZONE:America/Belem}
+  locale: ${DEFAULT_LOCALE:pt-BR}
+
+---
+################################################
+# configurações específicas para profile LOCAL #
+################################################
+spring:
+  config:
+    activate:
+      on-profile: local
+  flyway:
+    enabled: true
+    create-schemas: true
+    url: jdbc:postgresql://localhost:5432/localdb
+    #url: jdbc:postgresql://postgres-appname-local:5432/localdb
+    user: postgres
+    password: postgres
+    locations: ${FLYWAY_LOCATIONS:classpath:db/migration,classpath:db/data/desenv}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/localdb
+    #url: jdbc:postgresql://postgres-appname-local:5432/localdb
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+      javax.persistence.schema-generation.scripts:
+        action: drop-and-create
+        create-source: metadata
+        create-target: target/create.sql
+        drop-source: metadata
+        drop-target: target/drop.sql
+  security:
+    enabled: false
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8280/auth/realms/TRT8_DEV/protocol/openid-connect/certs
+          #jwk-set-uri: http://keycloak-appname-local:8080/auth/realms/TRT8_DEV/protocol/openid-connect/certs
+  mail:
+    enviar: false
+    redirect-to:
+
+# configurações de logging
+logging:
+  level:
+    org:
+      flywaydb: debug
+      hibernate:
+        type.descriptor.sql.BasicBinder: info
+      springframework:
+        web:
+          filter: info
+          client: debug
+        transaction: error
+      keycloak: error
+    br.jus.trt8: debug
+
+# configurações das integrações
+integracoes:
+  sigep:
+    #url: http://localhost:8081/
+    url: https://trt8-integracoes-dev.trt8.jus.br/integracoes-sigep/
+
+---
+#################################################
+# configurações específicas para profile DESENV #
+#################################################
+
+# configurações gerais
+spring:
+  config:
+    activate:
+      on-profile: desenv
+  flyway:
+    enabled: true
+    create-schemas: true
+    url: jdbc:postgresql://localhost:5432/localdb
+    #url: jdbc:postgresql://postgres-appname-local:5432/localdb
+    user: postgres
+    password: postgres
+    locations: ${FLYWAY_LOCATIONS:classpath:db/migration,classpath:db/data/desenv}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/localdb
+    #url: jdbc:postgresql://postgres-appname-local:5432/localdb
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      javax.persistence.schema-generation.scripts:
+        action: drop-and-create
+        create-source: metadata
+        create-target: target/create.sql
+        drop-source: metadata
+        drop-target: target/drop.sql
+  security:
+    enabled: false
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://keycloak-hom.trt8.jus.br/auth/realms/TRT8_DEV/protocol/openid-connect/certs
+  mail:
+    enviar: false
+    redirect-to:
+
+# configurações de logging
+logging:
+  level:
+    org:
+      flywaydb: debug
+      hibernate:
+        type.descriptor.sql.BasicBinder: info
+      springframework:
+        web:
+          filter: info
+          client: debug
+        transaction: error
+    br.jus.trt8: debug
+
+# configurações das integrações
+integracoes:
+  sigep:
+    url: https://trt8-integracoes-dev.trt8.jus.br/integracoes-sigep/
+
+---
+#################################################
+# configurações específicas para profile DEPLOY #
+#################################################
+spring:
+  config:
+    activate:
+      on-profile: deploy

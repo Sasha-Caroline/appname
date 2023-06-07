@@ -1,0 +1,92 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: appname-api
+  namespace: appname
+  labels:
+    app: appname-api
+    env: producao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appname-api
+      env: producao
+  template:
+    metadata:
+      labels:
+        app: appname-api
+        env: producao
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "1234"
+    spec:
+      containers:
+      - name: appname-api-container
+        image: registry.trt8.jus.br/desenvolvimento/appname/appname-api:<IMAGE_VERSION>
+        ports:
+        - containerPort: 8080
+        env:                     
+        - name: SERVER_PORT
+          value: "8080"
+        - name: CONTEXT_PATH
+          value: "/appname-api"
+        - name: DEFAULT_TIMEZONE
+          value: "America/Belem"
+        - name: DEFAULT_LOCALE
+          value: "pt-BR"          
+        - name: FLYWAY_ENABLED
+          value: "false"
+        - name: FLYWAY_CREATE_SCHEMA
+          value: "false"
+        - name: DB_DRIVER_CLASS_NAME
+          value: "oracle.jdbc.OracleDriver"
+        - name: JPA_DIALECT
+          value: "org.hibernate.dialect.Oracle12cDialect"
+        - name: DB_URL
+          value: ${DB_URL}
+        - name: DB_SCHEMA
+          value: "APPNAME"
+        - name: DB_USERNAME
+          value: ${DB_USERNAME}
+        - name: DB_PASSWORD
+          value: ${DB_PASSWORD}                  
+        - name: MAIL_HOST
+          value: ${MAIL_HOST}
+        - name: MAIL_PORT
+          value: ${MAIL_PORT}        
+        - name: JPA_SHOW_SQL
+          value: ${JPA_SHOW_SQL}
+        - name: LOGGING_LEVEL
+          value: ${LOGGING_LEVEL}                                        
+        - name: KEYCLOAK_REALM
+          value: ${KEYCLOAK_REALM}
+        - name: KEYCLOAK_AUTH_SERVER_URL
+          value: ${KEYCLOAK_AUTH_SERVER_URL}
+        - name: KEYCLOAK_RESOURCE_API
+          value: ${KEYCLOAK_RESOURCE_API}                
+        - name: INTEGRACOES_KEYCLOAK_URL
+          value: ${INTEGRACOES_KEYCLOAK_URL}
+        - name: INTEGRACOES_SIGEP_URL
+          value: ${INTEGRACOES_SIGEP_URL} 
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: appname-api-service
+  namespace: appname
+  labels:
+    app: appname-api
+    env: producao
+spec:
+  selector:
+     app: appname-api
+     env: producao
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+

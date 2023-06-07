@@ -1,0 +1,10 @@
+.settings
+target
+**/*.log
+Dockerfile
+.git
+.gitignore
+.vscode
+.devcontainer
+.editorconfig
+README.md

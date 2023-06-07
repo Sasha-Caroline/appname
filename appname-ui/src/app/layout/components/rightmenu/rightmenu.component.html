@@ -1,0 +1,7 @@
+<ng-container *ngIf="{value: layoutService.state | async} as state">
+    <aside id="right-menu" class="right-menu" [ngClass]="{'right-menu--expanded': state.value?.rightMenuExpanded}">
+        <app-profilemenu></app-profilemenu>
+        <section class="right-menu__notifications"><h1>Notificações Recentes</h1></section>
+        <section class="right-menu__activities"><h1>Atividades Recentes</h1></section>
+    </aside>
+</ng-container>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="{value: layoutService.state | async} as state">
+    <aside id="sidebar" class="sidebar" (mouseenter)="mouseEnterSidebar($event)" (mouseleave)="mouseLeaveSidebar($event)">
+        <section class="sidebar__header">
+            <div class="logo"><img src="assets/images/logos/_JT_Icone_Secundario.png" alt="Logo do TRT" /></div>
+            <div class="logo-app">
+                <div class="logo-app__sigla">{{'app.sigla' | translate}}</div>
+                <div class="logo-app__descricao">{{'app.nome' | translate}}</div>
+            </div>
+            <!-- <div class="sidebar__pin">
+                <a pRipple (click)="layoutService.togglePinSidebar()">
+                    <i class="pi" [ngClass]="{'pi-circle': !state.value?.sidebarPinned, 'pi-stop-circle': state.value?.sidebarPinned}"></i>
+                </a>
+            </div> -->
+        </section>
+        <nav #sidebarMenu class="sidebar__navigation">
+            <app-menu></app-menu>
+        </nav>
+        <section class="sidebar__footer" [ngClass]="{'sidebar__footer--expanded': state.value?.sidebarProfileMenuExpanded}">
+            <app-profilemenu (onMenuClick)="layoutService.toggleExpandSidebarProfile()" />
+        </section>
+    </aside>
+</ng-container>

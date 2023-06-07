@@ -1,0 +1,15 @@
+br\jus\trt8\appname\modelo\mappers\ProjetoMapperImpl.class
+br\jus\trt8\appname\modelo\dtos\ProjetoDTO.class
+br\jus\trt8\appname\modelo\entidades\Projeto$ProjetoBuilderImpl.class
+br\jus\trt8\appname\util\DateUtil.class
+br\jus\trt8\appname\configuracoes\AppConfig.class
+br\jus\trt8\appname\repositorios\ProjetoRepository.class
+br\jus\trt8\appname\modelo\entidades\Projeto$ProjetoBuilder.class
+br\jus\trt8\appname\modelo\enums\Perfil.class
+br\jus\trt8\appname\AppNameApiApplication.class
+br\jus\trt8\appname\servicos\ProjetoService.class
+br\jus\trt8\appname\controladores\ProjetoApi.class
+br\jus\trt8\appname\modelo\entidades\Projeto.class
+br\jus\trt8\appname\modelo\mappers\ProjetoMapper.class
+br\jus\trt8\appname\modelo\dtos\ProjetoDTO$ProjetoDTOBuilderImpl.class
+br\jus\trt8\appname\modelo\dtos\ProjetoDTO$ProjetoDTOBuilder.class

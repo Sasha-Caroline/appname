@@ -1,0 +1,72 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+    "name": "[BACKEND] AppName",
+    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "image": "mcr.microsoft.com/devcontainers/java:0-17",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "none",
+            "installMaven": "true",
+            "installGradle": "false"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "ppa": true,
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+            "moby": true,
+            "version": "latest",
+            "dockerDashComposeVersion": "v2"
+        },
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "java -version",
+    // Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vmware.vscode-boot-dev-pack",
+                "vscjava.vscode-lombok",
+                "redhat.vscode-xml",
+                "shengchen.vscode-checkstyle",
+                "sonarsource.sonarlint-vscode",
+                "yzhang.markdown-all-in-one",
+                "davidanson.vscode-markdownlint",
+                "editorconfig.editorconfig",
+                "alefragnani.Bookmarks",
+                "ms-vsliveshare.vsliveshare",
+                "chrmarti.regex",
+                "pnp.polacode",
+                "aaron-bond.better-comments",
+                "oderwat.indent-rainbow",
+                "johnpapa.vscode-peacock",
+                "gruntfuggly.todo-tree",
+                "redhat.fabric8-analytics",
+                "eamodio.gitlens",
+                "donjayamanne.githistory",                
+                "ms-azuretools.vscode-docker",
+                "pkief.material-icon-theme",
+                "streetsidesoftware.code-spell-checker",
+                "streetsidesoftware.code-spell-checker-portuguese-brazilian",
+            ],
+            "workbench.iconTheme": "material-icon-theme",
+            "redhat.telemetry.enabled": true,            
+            "boot-java.rewrite.reconcile": true,
+            "git.openRepositoryInParentFolders": "always"
+        }
+    },
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
+    "workspaceFolder": "${localWorkspaceFolder}",
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind"
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+}

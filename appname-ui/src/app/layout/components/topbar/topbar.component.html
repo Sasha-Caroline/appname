@@ -1,0 +1,29 @@
+<header class="topbar">
+    <nav class="topbar__start">
+        <ul class="topbar__buttons">
+            <li>
+                <a #toggleSidebarButton pRipple (click)="layoutService.toggleSidebar()">
+                    <fa-icon [icon]="['fas','bars']" size="lg"></fa-icon>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav #topbarActions class="topbar__end">
+        <ul class="topbar__buttons">
+            <li>
+                <a pRipple [pTooltip]="'botao.pesquisar' | translate" tooltipPosition="bottom">
+                    <fa-icon [icon]="['fas','magnifying-glass']" size="lg"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a pRipple [pTooltip]="'botao.caixa-entrada' | translate" tooltipPosition="bottom">
+                    <fa-icon [icon]="['fas','inbox']" size="lg"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <app-profilemenu (onMenuClick)="layoutService.expandRightMenu()"></app-profilemenu>
+            </li>
+        </ul>
+    </nav>
+</header>

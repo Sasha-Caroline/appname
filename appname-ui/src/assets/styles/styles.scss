@@ -1,0 +1,12 @@
+@import "template/main.scss";
+
+.topbar_logo {
+    &--sigla {
+        color: #007b5f;
+    }
+
+    &--descricao {
+        color: #01426a;
+        border-color: #ffcd00;
+    }
+}

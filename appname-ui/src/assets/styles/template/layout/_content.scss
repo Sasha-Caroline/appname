@@ -1,0 +1,25 @@
+.logo {
+    height: 2.5rem;
+
+    > img {
+        height: 100%;
+    }
+}
+
+.card {
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+    --shadow-colored: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color) !important;
+    --ring-offset-shadow: 0 0 #0000;
+    --ring-shadow: 0 0 #0000;
+    box-shadow: var(--ring-offset-shadow, 0 0 #0000), var(--ring-shadow, 0 0 #0000), var(--shadow) !important;
+
+    background: var(--surface-card);
+    color: var(--text-color);
+    border-radius: $borderRadius;
+    margin-bottom: 2rem;
+    // padding-bottom: 1.25rem !important;
+    overflow-x: hidden;
+    // margin-top: 2rem !important;
+
+    border-color: rgba(226, 232, 240, 1);
+}

@@ -1,0 +1,71 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: appname-ui-hom
+  namespace: dev
+  labels:
+    app: appname-ui-hom
+    env: homologacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appname-ui-hom
+      env: homologacao
+  template:
+    metadata:
+      labels:
+        app: appname-ui-hom
+        env: homologacao
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "1234"
+    spec:
+      hostAliases:
+      - ip: "10.8.26.97"
+        hostnames:
+        - "oracle-apoio"
+        - "oracle-apoio.trt8.net"
+      containers:
+      - name: appname-ui-hom-container
+        image: registry.trt8.jus.br/desenvolvimento/appname/appname-ui:<IMAGE_VERSION>
+        ports:
+        - containerPort: 80
+        env:
+        - name: KEYCLOAK_REALM
+          value: ${KEYCLOAK_REALM}
+        - name: KEYCLOAK_AUTH_SERVER_URL
+          value: ${KEYCLOAK_AUTH_SERVER_URL}
+        - name: KEYCLOAK_RESOURCE_UI
+          value: ${KEYCLOAK_RESOURCE_UI}
+        - name: KEYCLOAK_ROLE_RESOURCE
+          value: ${KEYCLOAK_RESOURCE_API}
+        - name: AMBIENTE
+          value: "Homologação"        
+        - name: API_URL
+          value: "https://appname-hom.trt8.jus.br/api"
+        - name: DEFAULT_TIMEZONE
+          value: "America/Belem"
+        - name: DEFAULT_LOCALE
+          value: "pt-BR"  
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: appname-ui-hom-service
+  namespace: dev
+  labels:
+    app: appname-ui-hom
+    env: homologacao
+  annotations:
+    kubernetes.io/ingress.class: nginx  
+spec:
+  selector:
+     app: appname-ui-hom
+     env: homologacao
+  ports:
+    - name: http
+      port: 80      
+

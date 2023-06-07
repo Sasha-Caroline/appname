@@ -1,0 +1,38 @@
+
+@hostname = dev-java
+#@hostname = localhost
+@port = 8080
+@protocol = http
+
+@contentType = application/json
+@host = {{hostname}}:{{port}}
+@url = {{protocol}}://{{host}}
+
+
+### Lista todos os tópicos
+GET {{url}}/api/projeto HTTP/1.1
+Content-Type: {{contentType}}
+
+### Recupera os dados de um projeto
+GET {{url}}/api/projeto/125 HTTP/1.1
+Content-Type: {{contentType}}
+
+### Cria um novo projeto
+POST {{url}}/api/projeto HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "titulo": "Novo Projeto XPTO"    
+}
+
+### Atualiza os dados de um projeto
+PUT {{url}}/api/projeto/125 HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "titulo": "Projeto XPTO Atualizado"
+}
+
+### Remove um projeto
+DELETE {{url}}/api/projeto/125 HTTP/1.1
+Content-Type: {{contentType}}

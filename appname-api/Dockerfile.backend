@@ -1,0 +1,34 @@
+FROM registry.trt8.jus.br/trt8/tools/maven:3.8.4 as builderApp
+
+WORKDIR /root
+COPY settings.xml .m2/
+COPY parent-pom.xml pom.xml
+
+WORKDIR /root/app
+COPY pom.xml .
+COPY src src
+
+ARG SKIP_TESTS=true
+RUN mvn -Pdeploy package -Dmaven.test.skip=${SKIP_TESTS}
+
+RUN java -Djarmode=layertools -jar ./target/appname-api-repackaged.war extract
+
+
+
+
+
+
+
+
+
+FROM registry.trt8.jus.br/trt8/tools/tomcat:9.0.62-jre17-temurin as runnerApp
+
+#make app dir and copy app layers 
+RUN mkdir -p /usr/local/tomcat/webapps/api/
+
+COPY --from=builderApp /root/app/dependencies/ /usr/local/tomcat/webapps/api/
+COPY --from=builderApp /root/app/snapshot-dependencies/ /usr/local/tomcat/webapps/api/
+COPY --from=builderApp /root/app/application/ /usr/local/tomcat/webapps/api/
+EXPOSE 8080
+
+CMD ["dumb-init","catalina.sh","run"]

@@ -1,0 +1,72 @@
+<div class="surface-card shadow-2 border-round">
+    <section class="h-12rem flex flex-column justify-content-start align-items-center gap-3">
+        <div class="w-full flex justify-content-center gap-2 mt-7">
+            <div class="p-float-label w-7 md:w-6 lg:w-5 xl:w-4 mr-2">
+                <input pInputText id="searchInput" class="w-full" />
+                <label htmlFor="searchInput">Pesquisar...</label>
+            </div>
+            <button pButton pRipple class="p-button-rounded p-button-text p-button-icon-only" pTooltip="Pesquisa avançada" tooltipPosition="bottom">
+                <fa-icon [icon]="['fas', 'sliders']" size="lg"></fa-icon>
+            </button>
+            <!-- <button pButton pRipple class="p-button-danger p-button-rounded p-button-text p-button-icon-only" pTooltip="Limpar filtros" tooltipPosition="bottom">
+                <fa-icon [icon]="['fas', 'xmark']" size="lg"></fa-icon>
+            </button> -->
+        </div>
+        <div class="flex justify-content-center gap-2">
+            <!-- <p-chip styleClass="bg-amber-500 text-white" label="Project" [removable]="true"></p-chip> -->
+        </div>
+    </section>
+    <section class="border-round border-200 border-1 mt-2 p-1" *ngIf="resultSet$ | async as resultSet">
+        <p-table
+            #dt
+            dataKey="id"
+            [value]="resultSet | scroll"
+            styleClass="p-datatable-striped"
+            [scrollable]="true"
+            scrollHeight="50vh"
+            [rows]="20"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="52"
+            [rowHover]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th id="id" class="w-7rem">{{'projeto.campo.id' | translate}}</th>
+                    <th id="titulo">{{'projeto.campo.titulo' | translate}}</th>
+                    <th id="actions" class="w-15rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity>
+                <tr style="height: 52px">
+                    <td>
+                        <span class="p-column-title">{{'projeto.campo.id' | translate}}</span>
+                        {{entity.id}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{'projeto.campo.titulo' | translate}}</span>
+                        {{entity.titulo}}
+                    </td>
+                    <td>
+                        <span class="p-column-title"></span>
+                        <item-actions (alterar)="alterar(entity)" (visualizar)="visualizar(entity)" (excluir)="excluir(entity)"></item-actions>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody" let-columns="columns">
+                <tr style="height: 52px">
+                    <td>
+                        <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
+                    </td>
+                    <td>
+                        <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
+                    </td>
+                    <td class="width: 10rem">
+                        <p-skeleton [ngStyle]="{'width': '100%'}"></p-skeleton>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-end">{{'mensagem.registros.encontrados' | translate:{'total':resultSet.totalElements} }}</div>
+            </ng-template>
+        </p-table>
+    </section>
+</div>

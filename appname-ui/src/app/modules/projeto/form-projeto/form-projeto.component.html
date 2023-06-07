@@ -1,0 +1,24 @@
+<div class="card" *ngIf="entity$ | async  as entity">
+    <form id="form" [formGroup]="form">
+        <p-tabView [scrollable]="false">
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <fa-icon [icon]="['fas', 'file-pen']" size="lg" class="mr-2"></fa-icon>
+                    {{'label.formulario' | translate}}
+                </ng-template>
+                <form-section title="Dados Gerais" description="Preencha os campos abaixo com informações do projeto">
+                    <form-field *ngIf="!isInclusao()" id="id" label="Id" class="field col-12 sm:col-2" [showField]="showFields">
+                        <input field pInputText id="id" formControlName="id" class="w-full" [value]="entity.id" />
+                        <div visualizacao>{{entity.id}}</div>
+                    </form-field>
+                    <form-field id="titulo" label="Titulo" class="field col-12 sm:col-10" [showField]="showFields">
+                        <input field pInputText id="titulo" formControlName="titulo" class="w-full" />
+                        <div visualizacao>{{entity.titulo}}</div>
+                    </form-field>
+                </form-section>
+            </p-tabPanel>
+        </p-tabView>
+    </form>
+
+    <form-footer [tipoOperacao]="operacao" (salvar)="salvar(form)" (voltar)="voltar()" (cancelar)="voltar()" (confirmarExclusao)="confirmarExclusao(entity)"></form-footer>
+</div>
